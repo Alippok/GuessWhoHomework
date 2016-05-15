@@ -20188,20 +20188,37 @@
 /* 168 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	var React = __webpack_require__(1);
 	
 	var GuessWhoMain = React.createClass({
-	  displayName: 'GuessWhoMain',
+	  displayName: "GuessWhoMain",
 	
+	  getInitialState: function getInitialState() {
+	    return { peopleList: [], selectedPerson: null };
+	  },
+	
+	  fetchPeople: function fetchPeople() {
+	    var request = new XMLHttpRequest();
+	    request.open("GET", "/api/people");
+	    request.onload = function () {
+	      var data = JSON.parse(request.responseText);
+	      this.setState({ peopleList: data, selectedPerson: data[Math.floor(Math.random() * data.length)] });
+	    }.bind(this);
+	    request.send();
+	  },
+	
+	  componentDidMount: function componentDidMount() {
+	    this.fetchPeople();
+	  },
 	
 	  render: function render() {
-	
+	    console.log(this.state);
 	    return React.createElement(
-	      'h4',
+	      "h4",
 	      null,
-	      ' Welcome to Guess Who '
+	      " Welcome to Guess Who "
 	    );
 	  }
 	
