@@ -20188,12 +20188,13 @@
 /* 168 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	var React = __webpack_require__(1);
+	var AllPeopleDisplay = __webpack_require__(169);
 	
 	var GuessWhoMain = React.createClass({
-	  displayName: "GuessWhoMain",
+	  displayName: 'GuessWhoMain',
 	
 	  getInitialState: function getInitialState() {
 	    return { peopleList: [], selectedPerson: null };
@@ -20216,15 +20217,144 @@
 	  render: function render() {
 	    console.log(this.state);
 	    return React.createElement(
-	      "h4",
+	      'div',
 	      null,
-	      " Welcome to Guess Who "
+	      React.createElement(
+	        'h4',
+	        null,
+	        ' Welcome to Guess Who '
+	      ),
+	      React.createElement(AllPeopleDisplay, { allPeopleDetails: this.state.peopleList })
 	    );
 	  }
 	
 	});
 	
 	module.exports = GuessWhoMain;
+
+/***/ },
+/* 169 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	//will display all people's characteristics with option for user to remove a person if does not fit answer
+	
+	var React = __webpack_require__(1);
+	var PersonDisplay = __webpack_require__(170);
+	
+	var AllPeopleDisplay = React.createClass({
+	  displayName: 'AllPeopleDisplay',
+	
+	
+	  render: function render() {
+	
+	    var peopleList = this.props.allPeopleDetails.map(function (person) {
+	      return React.createElement(PersonDisplay, { key: person._id, personDetails: person });
+	    });
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'h4',
+	        null,
+	        ' All People '
+	      ),
+	      peopleList
+	    );
+	  }
+	});
+	
+	module.exports = AllPeopleDisplay;
+
+/***/ },
+/* 170 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	var React = __webpack_require__(1);
+	
+	var PersonDisplay = React.createClass({
+	  displayName: "PersonDisplay",
+	
+	
+	  displayBooleanValue: function displayBooleanValue(personDetail) {
+	    if (personDetail) {
+	      return "yes";
+	    } else {
+	      return "no";
+	    }
+	  },
+	
+	  render: function render() {
+	
+	    return React.createElement(
+	      "div",
+	      null,
+	      React.createElement(
+	        "h3",
+	        null,
+	        " ",
+	        this.props.personDetails.name,
+	        " "
+	      ),
+	      React.createElement(
+	        "ul",
+	        null,
+	        React.createElement(
+	          "li",
+	          null,
+	          "Hair Colour: ",
+	          this.props.personDetails.hairColour
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          "Eye Colour: ",
+	          this.props.personDetails.eyeColour
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          "Is bald: ",
+	          this.displayBooleanValue(this.props.personDetails.isBald)
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          "Has a beard: ",
+	          this.displayBooleanValue(this.props.personDetails.hasBeard)
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          "Has a moustache: ",
+	          this.displayBooleanValue(this.props.personDetails.hasMoustache)
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          "Wears glasses: ",
+	          this.displayBooleanValue(this.props.personDetails.wearsGlasses)
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          " Wears a hat: ",
+	          this.displayBooleanValue(this.props.personDetails.wearsHat)
+	        )
+	      ),
+	      React.createElement(
+	        "button",
+	        { type: "submit" },
+	        " Discard "
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = PersonDisplay;
 
 /***/ }
 /******/ ]);

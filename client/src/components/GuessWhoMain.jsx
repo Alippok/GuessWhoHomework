@@ -1,4 +1,5 @@
 var React = require('react');
+var AllPeopleDisplay = require('./AllPeopleDisplay.jsx');
 
 
 var GuessWhoMain = React.createClass({
@@ -22,7 +23,12 @@ var GuessWhoMain = React.createClass({
 
   render: function(){
     console.log(this.state)
-    return <h4> Welcome to Guess Who </h4>
+    return(
+      <div>
+        <h4> Welcome to Guess Who </h4>
+        <AllPeopleDisplay allPeopleDetails={this.state.peopleList}></AllPeopleDisplay>
+      </div>
+      ) 
   }
 
 
